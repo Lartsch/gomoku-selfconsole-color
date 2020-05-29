@@ -369,7 +369,7 @@ public class Board {
 		System.out.println();
 		System.out.println();
 		System.out.println();
-		AnsiConsole.out.println(ansi().fgBright(WHITE).bold().a("--- Turn #" + (this.player1.step() + this.player2.step())+" ---").reset());
+		AnsiConsole.out.println(ansi().fgBright(WHITE).bold().a("--- Turn #" + (this.player1.step() + this.player2.step()) + 1+" ---").reset());
 		System.out.println();
 		AnsiConsole.out.println((this.player1.step() == this.player2.step() ? " * " : "   ") + ansi().fgBright(this.player1.color).a(buildPlayerInfo(this.player1)).reset());
 		AnsiConsole.out.println((this.player1.step() == this.player2.step() ? "   " : " * ") + ansi().fgBright(this.player2.color).a(buildPlayerInfo(this.player2)).reset());

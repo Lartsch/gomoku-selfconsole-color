@@ -45,7 +45,7 @@ public class GameSetup {
 			}
 			Board.clearScreen();
 			System.out.println();
-			AnsiConsole.out.println(ansi().fgBright(RED).a("Perfect! Remember player marker: You:'X' Computer:'O'. Ready? (y/n)").reset());
+			AnsiConsole.out.println(ansi().fgBright(RED).a("Perfect! Remember player marker: ").fgBright(GREEN).a("You:'X'").fgBright(RED).a(" | ").fgBright(BLUE).a("Computer:'O'").fgBright(RED).a(" - Ready? (y/n)").reset());
 			while (!CIN.next().equalsIgnoreCase("y")) {
 				System.out.println("Input 'y' to start game");
 			}

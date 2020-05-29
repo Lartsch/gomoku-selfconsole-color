@@ -16,46 +16,48 @@ import java.net.URLDecoder;
 * Small but nice extra: Setting the terminal title (Windows and Mac only as of now)
 
 * Note: When shipping, take care of the compiler compatibility level / compiler version
-* If you want to execute this program from your IDE simply add any program run argument, otherwise it will fail.
+* If you want to execute this program from your IDE simply add any program run argument, otherwise it will fail to launch.
 * 
 * @author lartsch
 * 
 */
 
-
 public class Main {
-	public static String systemName = "";
+	// get the platform string
+	public static String systemName = System.getProperty("os.name").toLowerCase();
 	public static void main(String[] args) throws Exception {
 		// check if an argument was passed on jar execution
 	    if (args.length == 0) {
-	    	// get the current system name
-	    	systemName = System.getProperty("os.name").toLowerCase();
 	    	// get the path of the currently running jar
 	    	final String jarPath = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	    	final String decodedPath = URLDecoder.decode(jarPath, "UTF-8");
 	    	// Setting for the terminal window title (Linux/Windows)
-	    	final String windowTitle = "Die böse 2";
+	    	final String windowTitle = "App Name";
 	    	// Settings for the OS dependent commands
 	    	final String[] windowsCommands = new String[] {"cmd", "/k", "start", windowTitle, "java", "-jar", decodedPath.substring(1), "run"};
 	    	final String[] macCommands = new String[] {"/bin/bash", "-c", "java", "-jar", decodedPath, "run"};
 	    	final String[] linuxCommands = new String[] {"xfce4-terminal", "--title="+windowTitle, "--hold", "-x", "java", "-jar", decodedPath, "run"};
+	    	// TODO: add other Linux terminal commands here ...
 	    	// Check the current platform...
 	    	if(systemName.contains("windows")) {
 	    		// then start the new process
 	    		new ProcessBuilder(windowsCommands).start();
+	    		// kill the original process
+	    		System.exit(0);
 	    	} else if(systemName.contains("mac")) {
 	    		new ProcessBuilder(macCommands).start();
+	    		System.exit(0);
 	    	} else if(systemName.contains("linux")) {
+	    		// TODO: detection which terminal binaries are available and then choosing the best option
 	    		new ProcessBuilder(linuxCommands).start();
+	    		System.exit(0);
 	    	} else {
 	    		// If no OS could be detected, the program should shut down
 	    		System.err.println("OS could not be detected.");
 	    		System.exit(0);
 	    	}
 	    } else {
-	    	// get the current system name
-	    	systemName = System.getProperty("os.name").toLowerCase();
-	    	// Actual program to execute
+	    	// ACTUAL PROGRAM TO EXECUTE COMES HERE
 	    	GameSetup.runGame();
 	    } 
 	}
