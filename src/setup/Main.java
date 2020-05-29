@@ -42,20 +42,16 @@ public class Main {
 	    	if(systemName.contains("windows")) {
 	    		// then start the new process
 	    		new ProcessBuilder(windowsCommands).start();
-	    		// kill the original process
-	    		System.exit(0);
 	    	} else if(systemName.contains("mac")) {
 	    		new ProcessBuilder(macCommands).start();
-	    		System.exit(0);
 	    	} else if(systemName.contains("linux")) {
 	    		// TODO: detection which terminal binaries are available and then choosing the best option
 	    		new ProcessBuilder(linuxCommands).start();
-	    		System.exit(0);
 	    	} else {
-	    		// If no OS could be detected, the program should shut down
+	    		// No OS could be detected
 	    		System.err.println("OS could not be detected.");
-	    		System.exit(0);
 	    	}
+	    	System.exit(0);
 	    } else {
 	    	// ACTUAL PROGRAM TO EXECUTE COMES HERE
 	    	GameSetup.runGame();
