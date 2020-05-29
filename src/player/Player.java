@@ -11,7 +11,7 @@ import board.*;
  * @author lartsch
  */
 public abstract class Player {
-	public static int turnCounter = 0;
+	public static int turnCounter = 1;
 	public final char marker;
 	private final List<Long> times;
 	private final List<Pos> path;
