@@ -11,6 +11,7 @@ import board.*;
  * @author lartsch
  */
 public abstract class Player {
+	public static int turnCounter = 0;
 	public final char marker;
 	private final List<Long> times;
 	private final List<Pos> path;
@@ -79,6 +80,7 @@ public abstract class Player {
 		this.times.add(end - start);
 		this.path.add(move.getNext());
 		this.score = move.getScore();
+		turnCounter++;
 		return move.getNext();
 	}
 
