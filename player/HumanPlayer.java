@@ -3,6 +3,7 @@ package player;
 import java.util.Scanner;
 
 import org.fusesource.jansi.Ansi;
+import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 import org.fusesource.jansi.AnsiConsole;
 
@@ -32,7 +33,7 @@ public class HumanPlayer extends Player {
         String row = CIN.next();
         String col = CIN.next();
         while (!row.matches(INTEGER_PATTERN) || !col.matches(INTEGER_PATTERN)) {
-            System.out.println("Row and col must be integer");
+            AnsiConsole.out.println(ansi().fg(YELLOW).a("Row and col must be integer").reset());
             System.out.println(this + " please input row and col:");
             row = CIN.next();
             col = CIN.next();

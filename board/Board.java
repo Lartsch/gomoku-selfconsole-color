@@ -36,7 +36,8 @@ public class Board {
 	public static int getnCol() {
 		return N_COL;
 	}
-
+	
+	private int turnCounter;
 	private final GameStatus status;
 	private final char[][] grid;
 	public final Player player1;
@@ -47,6 +48,7 @@ public class Board {
 		this.player1 = player1;
 		this.player2 = player2;
 		this.status = new GameStatus(Status.ONGOING, null, Collections.emptySet());
+		this.turnCounter = 1;
 	}
 	
 	public Board(Board other) {
@@ -54,6 +56,7 @@ public class Board {
 		this.player2 = other.player2;
 		this.grid = copyOf(other.grid);
 		this.status = new GameStatus(other.status.getStatus(), other.status.getWinner(), other.status.getWinningSet());
+		this.turnCounter = other.turnCounter;
 	}
 
 	/**
@@ -156,11 +159,11 @@ public class Board {
 	 */
 	public boolean mark(Pos pos, Player player) {
 		if ((pos.getRow() < 0 || pos.getRow() > N_ROW - 1) || (pos.getCol() < 0 || pos.getCol() > N_COL - 1)) {
-			System.out.println("Row must between 1 and " + N_ROW + ", Col must between 1 and " + N_COL);
+			AnsiConsole.out.println(ansi().fg(YELLOW).a("Row must between 1 and " + N_ROW + ", Col must between 1 and " + N_COL).reset());
 			return false;
 		}
 		if (this.grid[pos.getRow()][pos.getCol()] != EMPTY_CHAR) {
-			System.out.println(pos + "=" + this.grid[pos.getRow()][pos.getCol()] + " is not empty");
+			AnsiConsole.out.println(ansi().fg(YELLOW).a(pos + "=" + this.grid[pos.getRow()][pos.getCol()] + " is not empty").reset());
 			return false;
 		}
 		this.grid[pos.getRow()][pos.getCol()] = player.marker;
@@ -365,11 +368,13 @@ public class Board {
 	 * @done
 	 */
 	public void print() {
-		clearScreen();
+		if(!GameSetup.clearScreenString.equalsIgnoreCase("n")) {
+			clearScreen();
+		}	
 		System.out.println();
 		System.out.println();
 		System.out.println();
-		AnsiConsole.out.println(ansi().fgBright(WHITE).bold().a("--- Turn #" + Player.turnCounter +" ---").reset());
+		AnsiConsole.out.println(ansi().fgBright(WHITE).bold().a("--- Turn #" + this.turnCounter++ +" ---").reset());
 		System.out.println();
 		AnsiConsole.out.println((this.player1.step() == this.player2.step() ? " * " : "   ") + ansi().fgBright(this.player1.color).a(buildPlayerInfo(this.player1)).reset());
 		AnsiConsole.out.println((this.player1.step() == this.player2.step() ? "   " : " * ") + ansi().fgBright(this.player2.color).a(buildPlayerInfo(this.player2)).reset());
