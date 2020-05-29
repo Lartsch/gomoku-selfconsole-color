@@ -16,7 +16,7 @@ import java.net.URLDecoder;
 * Small but nice extra: Setting the terminal title (Windows and Mac only as of now)
 
 * Note: When shipping, take care of the compiler compatibility level / compiler version
-* If you want to execute this program from your IDE simply add any program run argument, otherwise it will fail to launch.
+* If you want to execute your program from an IDE simply add any program run argument, otherwise it will fail to launch.
 * 
 * @author lartsch
 * 
@@ -33,24 +33,20 @@ public class Main {
 	    	final String decodedPath = URLDecoder.decode(jarPath, "UTF-8");
 	    	// Setting for the terminal window title (Linux/Windows)
 	    	final String windowTitle = "App Name";
-	    	// Settings for the OS dependent commands
-	    	final String[] windowsCommands = new String[] {"cmd", "/k", "start", windowTitle, "java", "-jar", decodedPath.substring(1), "run"};
-	    	final String[] macCommands = new String[] {"/bin/bash", "-c", "java", "-jar", decodedPath, "run"};
-	    	final String[] linuxCommands = new String[] {"xfce4-terminal", "--title="+windowTitle, "--hold", "-x", "java", "-jar", decodedPath, "run"};
-	    	// TODO: add other Linux terminal commands here ...
 	    	// Check the current platform...
 	    	if(systemName.contains("windows")) {
-	    		// then start the new process
-	    		new ProcessBuilder(windowsCommands).start();
+	    		// then start the new process with the OS or terminal dependent commands
+	    		new ProcessBuilder(new String[] {"cmd", "/k", "start", windowTitle, "java", "-jar", decodedPath.substring(1), "run"}).start();
 	    	} else if(systemName.contains("mac")) {
-	    		new ProcessBuilder(macCommands).start();
+	    		new ProcessBuilder(new String[] {"/bin/bash", "-c", "java", "-jar", decodedPath, "run"}).start();
 	    	} else if(systemName.contains("linux")) {
-	    		// TODO: detection which terminal binaries are available and then choosing the best option
-	    		new ProcessBuilder(linuxCommands).start();
+	    		// TODO: add support for other Linux terminals
+	    		new ProcessBuilder(new String[] {"xfce4-terminal", "--title="+windowTitle, "--hold", "-x", "java", "-jar", decodedPath, "run"}).start();
 	    	} else {
 	    		// No OS could be detected
 	    		System.err.println("OS could not be detected.");
 	    	}
+	    	// destroy the original process
 	    	System.exit(0);
 	    } else {
 	    	// ACTUAL PROGRAM TO EXECUTE COMES HERE
