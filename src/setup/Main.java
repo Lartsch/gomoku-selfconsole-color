@@ -51,6 +51,7 @@ public class Main {
 	    		// No OS could be detected
 	    		System.err.println("OS could not be detected.");
 	    	}
+		// destroy the original process
 	    	System.exit(0);
 	    } else {
 	    	// ACTUAL PROGRAM TO EXECUTE COMES HERE
