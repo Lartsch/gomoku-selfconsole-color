@@ -430,7 +430,7 @@ public class Board {
 			System.out.println();
 			System.out.println();
 			AnsiConsole.out.println(ansi().fgBright(RED).bold().a(" Do you want to play another round? (y/n)").reset());
-			System.out.println(" ('y' will clear screen and start a new round, 'n' will close the game)");
+			System.out.println(" 'y' will clear screen and start a new round, 'n' will close the game");
 			System.out.print(" ");
 			Scanner answer = new Scanner(System.in);
 			String newRound = answer.next();
