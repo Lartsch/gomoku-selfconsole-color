@@ -6,4 +6,4 @@ Currently on Linux, for selfconsole only xfce4-terminal is supported. Feel free 
 Utilizes jansi library (for cross platform console colors), which is not included here. Include it in your buildpath manually.
 The release jar includes jansi.
 
-_If the jar does not work for your terminal (missing selfconsole support), simply run the jar directly from the terminal with any run argument._
+_If the jar does not work for your terminal (missing selfconsole support), simply run the jar directly from the terminal with any run argument (literally any)._
