@@ -17,14 +17,16 @@ public abstract class Player {
 	private int score;
 	private int bestDepth;
 	public final Ansi.Color color;
+	public String name;
 
-	public Player(char marker, Ansi.Color color) {
+	public Player(char marker, Ansi.Color color, String name) {
 		this.marker = marker;
 		this.times = new ArrayList<>();
 		this.path = new ArrayList<>();
 		this.setScore(0);
 		this.setBestDepth(0);
 		this.color = color;
+		this.name = name;
 	}
 
 	public int getBestDepth() {

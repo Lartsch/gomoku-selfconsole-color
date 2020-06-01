@@ -12,8 +12,8 @@ import board.*;
 
 public class AlphaBetaPlayer extends MinimaxPlayer {
 
-	public AlphaBetaPlayer(char marker, int depth, Ansi.Color color) {
-		super(marker, depth, color);
+	public AlphaBetaPlayer(char marker, int depth, Ansi.Color color, String name) {
+		super(marker, depth, color, name);
 	}
 
 	/*

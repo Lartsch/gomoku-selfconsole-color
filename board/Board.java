@@ -368,18 +368,18 @@ public class Board {
 	 * @done
 	 */
 	public void print() {
-		if(!GameSetup.clearScreenString.equalsIgnoreCase("n")) {
+		if(GameSetup.clearScreenString.equalsIgnoreCase("y")) {
 			clearScreen();
 		}	
 		System.out.println();
 		System.out.println();
 		System.out.println();
-		AnsiConsole.out.println(ansi().fgBright(WHITE).bold().a("--- Turn #" + this.turnCounter++ +" ---").reset());
+		AnsiConsole.out.println(ansi().fgBright(WHITE).bold().a(" --- Turn #" + this.turnCounter++ +" ---").reset());
 		System.out.println();
-		AnsiConsole.out.println((this.player1.step() == this.player2.step() ? " * " : "   ") + ansi().fgBright(this.player1.color).a(buildPlayerInfo(this.player1)).reset());
-		AnsiConsole.out.println((this.player1.step() == this.player2.step() ? "   " : " * ") + ansi().fgBright(this.player2.color).a(buildPlayerInfo(this.player2)).reset());
+		AnsiConsole.out.println((this.player1.step() == this.player2.step() ? "  * " : "    ") + ansi().fgBright(this.player1.color).a(buildPlayerInfo(this.player1)).reset());
+		AnsiConsole.out.println((this.player1.step() == this.player2.step() ? "    " : "  * ") + ansi().fgBright(this.player2.color).a(buildPlayerInfo(this.player2)).reset());
 		System.out.println();
-		System.out.print("    ");
+		System.out.print("     ");
 		for (int i = 0; i < 9; i++) {
 			System.out.print((i + 1) + "   ");
 		}
@@ -388,9 +388,9 @@ public class Board {
 		}
 		System.out.println();
 		for (int i = 0; i < N_ROW; i++) {
-			System.out.print((i + 1) + (i >= 9 ? "  " : "   "));
+			System.out.print(" "+(i + 1) + (i >= 9 ? "  " : "   "));
 			for (int j = 0; j < N_COL; j++) {
-				if(this.grid[i][j] == '-') {
+				if(this.grid[i][j] == EMPTY_CHAR) {
 					System.out.print(this.grid[i][j] + "   ");
 				}
 				if(this.grid[i][j] == this.player1.marker) {
@@ -408,19 +408,19 @@ public class Board {
 			System.out.println();
 			System.out.println();
 			if (this.status.isWinning()) {
-				AnsiConsole.out.println(ansi().fgBright(RED).bold().a(this.status.getWinner() + " is the WINNER, congratulations!").reset());
+				AnsiConsole.out.println(ansi().fgBright(RED).bold().a(" "+this.status.getWinner() + " is the WINNER, congratulations!").reset());
 			} else {
-				AnsiConsole.out.println(ansi().fgBright(RED).bold().a("You both are so good, but game is draw!").reset());
+				AnsiConsole.out.println(ansi().fgBright(RED).bold().a(" You both are so good, but game is draw!").reset());
 			}
 			System.out.println();
-			AnsiConsole.out.println(ansi().fgBright(WHITE).bold().a("SUMMARY:").reset());
+			AnsiConsole.out.println(ansi().fgBright(WHITE).bold().a(" SUMMARY:").reset());
 			double timesOfP1 = this.player1.time() * 1.0 / 1E9;
 			double timesOfP2 = this.player2.time() * 1.0 / 1E9;
 			AnsiConsole.out.print(ansi().fgBright(this.player1.color));
-			System.out.printf("%s   Step: %d   Total Time: %3.1fs   Avg Time: %.1fs\n", " " + this.player1,
+			System.out.printf(" %s   Step: %d   Total Time: %3.1fs   Avg Time: %.1fs\n", " " + this.player1 + " ("+this.player1.name+")",
 					this.player1.step(), timesOfP1, timesOfP1 / this.player1.step());
 			AnsiConsole.out.print(ansi().fgBright(this.player2.color));
-			System.out.printf("%s   Step: %d   Total Time: %3.1fs   Avg Time: %.1fs\n", " " + this.player2,
+			System.out.printf(" %s   Step: %d   Total Time: %3.1fs   Avg Time: %.1fs\n", " " + this.player2 + " ("+this.player2.name+")",
 					this.player2.step(), timesOfP2, timesOfP2 / this.player2.step());
 			AnsiConsole.out.print(ansi().reset());
 			System.out.println();
@@ -429,17 +429,23 @@ public class Board {
 			System.out.println();
 			System.out.println();
 			System.out.println();
-			AnsiConsole.out.println(ansi().fgBright(RED).bold().a("Do you want to play another round? (y/n)").reset());
-			System.out.println("('y' will clear screen and start a new round, 'n' will close the game)");
+			AnsiConsole.out.println(ansi().fgBright(RED).bold().a(" Do you want to play another round? (y/n)").reset());
+			System.out.println(" ('y' will clear screen and start a new round, 'n' will close the game)");
+			System.out.print(" ");
 			Scanner answer = new Scanner(System.in);
 			String newRound = answer.next();
 			while (!newRound.equalsIgnoreCase("y") && !newRound.equalsIgnoreCase("n")) {
-				System.out.println("Input 'y' or 'n' no");
+				AnsiConsole.out.println(ansi().fg(YELLOW).a(" Input 'y' or 'n' no").reset());
+				System.out.print(" ");
 				newRound = answer.next();
 			}
 			if(newRound.equalsIgnoreCase("y")) {
 				clearScreen();
 				GameSetup.runGame();
+			} else {
+				System.out.println();
+				AnsiConsole.out.println(ansi().fgBright(RED).a("Goodbye!").reset());
+				System.exit(0);
 			}
 			answer.close();
 		}
@@ -451,7 +457,7 @@ public class Board {
 	 */
 	private String buildPlayerInfo(Player player) {
 		double seconds = (double) player.getLastTime() / 1_000_000_000.0;
-		return player + "  Step: " + player.step() + "  Last Pos: " + player.getLastPos() + "  Depth: "
+		return player + " (" + player.name + ")" + "  Step: " + player.step() + "  Last Pos: " + player.getLastPos() + "  Depth: "
 				+ player.getBestDepth() + "  Score: " + player.getScore() + "  Time: " + seconds + " seconds.";
 	}
 

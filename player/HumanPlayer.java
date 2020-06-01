@@ -18,8 +18,8 @@ public class HumanPlayer extends Player {
     private static final String INTEGER_PATTERN = "\\d+";
     private static final Scanner CIN = new Scanner(System.in);
 
-    public HumanPlayer(char marker, Ansi.Color color) {
-        super(marker, color);
+    public HumanPlayer(char marker, Ansi.Color color, String name) {
+        super(marker, color, name);
     }
 
     /*
@@ -29,13 +29,17 @@ public class HumanPlayer extends Player {
      */
     @Override
     protected Move decide(Board board) {
-        AnsiConsole.out.println(ansi().fgBright(this.color).a(this).reset() + " please input row and col:");
+        AnsiConsole.out.println(" "+ansi().fgBright(this.color).a(this.name).reset() + ", please input row and col:");
+        System.out.print(" ");
         String row = CIN.next();
+        System.out.print(" ");
         String col = CIN.next();
         while (!row.matches(INTEGER_PATTERN) || !col.matches(INTEGER_PATTERN)) {
-            AnsiConsole.out.println(ansi().fg(YELLOW).a("Row and col must be integer").reset());
-            System.out.println(this + " please input row and col:");
+            AnsiConsole.out.println(ansi().fg(YELLOW).a(" Row and col must be integer").reset());
+            AnsiConsole.out.println(" "+ansi().fgBright(this.color).a(this.name).reset() + ", please input row and col:");
+            System.out.print(" ");
             row = CIN.next();
+            System.out.print(" ");
             col = CIN.next();
         }
 

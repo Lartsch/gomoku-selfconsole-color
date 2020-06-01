@@ -20,8 +20,8 @@ public class MinimaxPlayer extends Player {
 	protected final int[][] history;
 	protected Move best;
 
-	public MinimaxPlayer(char marker, int depth, Ansi.Color color) {
-		super(marker, color);
+	public MinimaxPlayer(char marker, int depth, Ansi.Color color, String name) {
+		super(marker, color, name);
 		this.depth = depth;
 		this.history = buildHistory();
 		this.setBestDepth(0);
