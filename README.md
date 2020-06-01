@@ -1,5 +1,5 @@
 # gomoku-selfconsole-color
-An optimized fork of https://github.com/canhta/Gomoku-console (added features like multi-platform color support, multiplatform selfconsole, multi-platform screen clearing, better game flow and some more...).
+An optimized fork of https://github.com/canhta/Gomoku-console (added features like multiplatform color support, multiplatform selfconsole, multiplatform screen clearing, better game flow and some more...).
 
 Currently on Linux, for selfconsole only xfce4-terminal is supported. Feel free to start a pull request at https://github.com/Lartsch/java-selfconsole if you want other terminals added.
 
