@@ -32,7 +32,7 @@ public class Main {
 	    	final String jarPath = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	    	final String decodedPath = URLDecoder.decode(jarPath, "UTF-8");
 	    	// Setting for the terminal window title (Linux/Windows)
-	    	final String windowTitle = "App Name";
+	    	final String windowTitle = "Gomoku";
 	    	// Check the current platform...
 	    	if(systemName.contains("windows")) {
 	    		// then start the new process with the OS or terminal dependent commands
